@@ -1,0 +1,94 @@
+"设置编码
+set encoding=utf-8
+set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
+set fileencodings=utf-8,ucs-bom,chinese
+
+"语言设置
+set langmenu=zh_CN.UTF-8
+
+"设置语法高亮
+syntax enable
+syntax on
+
+" 显示行号  
+set nu
+
+" 自动补全 
+:inoremap ( ()<ESC>i
+:inoremap ) <c-r>=ClosePair(')')<CR>
+:inoremap { {}<ESC>i
+:inoremap } <c-r>=ClosePair('}')<CR>
+:inoremap [ []<ESC>i
+:inoremap ] <c-r>=ClosePair(']')<CR>
+:inoremap " ""<ESC>i
+:inoremap ' ''<ESC>i
+function! ClosePair(char)
+	if getline('.')[col('.') - 1] == a:char
+		return "\<Right>"
+	else
+		return a:char
+	endif
+endfunction
+filetype plugin indent on 
+
+"打开文件类型检测, 加了这句才可以用智能补全
+set completeopt=longest,menu
+
+"显示标尺
+"set ruler
+
+" 状态行
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+" 启动显示状态行(1),总是显示状态行(2)
+"set laststatus=2
+
+"搜索逐字符高亮
+set hlsearch
+set incsearch
+
+"用浅色高亮当前行 
+"autocmd InsertLeave * se nocul
+"autocmd InsertEnter * se cul
+
+"可以在buffer的任何地方使用鼠标
+"set mouse=n
+
+"set selection=exclusive
+"set selectmode=mouse,key
+
+"高亮显示匹配的括号
+set showmatch
+
+"去掉vi一致性
+set nocompatible
+
+"设置缩进
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set autoindent
+set cindent
+
+if &term=="xterm"
+	set t_Co=8
+	set t_Sb=^[[4%dm
+	set t_Sf=^[[3%dm
+endif
+
+"ctags ctrl+] 附加:ts功能
+nmap <c-]> g<c-]>
+
+"打开文件类型自动检测功能
+filetype on
+
+"let Tlist_Auto_Open=1
+set tags=tags;
+set autochdir
+
+"设置taglist
+let Tlist_Show_One_File=0   "显示多个文件的tags
+let Tlist_File_Fold_Auto_Close=1 "非当前文件，函数列表折叠隐藏
+let Tlist_Exit_OnlyWindow=1 "在taglist是最后一个窗口时退出vim
+let Tlist_Use_SingleClick=1 "单击时跳转
+let Tlist_GainFocus_On_ToggleOpen=1 "打开taglist时获得输入焦点
+let Tlist_Process_File_Always=1 "不管taglist窗口是否打开，始终解析文件中的tag
